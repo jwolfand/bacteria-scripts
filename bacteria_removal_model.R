@@ -1,8 +1,7 @@
 #------------------------------------------------------------------------------
 # SCRIPT bacteria_removal_model
-# J. Wolfand, adapted from script with date 11/14/17. 
-# Changes from previous version: Compares daily 10 am simulated value with TMDL limit instead of with daily geomean
-# Purpose: to predict bacteria removal in stormwater BMPs in a large watershed
+# J. Wolfand, adapted from script with date 11/14/17.
+# Purpose: to predict bacteria removal in stormwater BMPs in a large watershed.
 # Read in file to get precip and datetime
 # Read SUSTAIN file to get Qin and Qout as well as totals
 # Read in SUSTAIN data to get Qin and Qout from a single BMP (bioretention)
@@ -32,8 +31,7 @@ library(ggplot2)
 # USER MODIFIED CONSTANTS ----------------------------------------------------------
 output.file <- "noinf"
 saveToFile <- TRUE
-dirList = c(
-  # "../SUSTAIN_files/1709/logrem_model_0BR-noinf_0pct/",
+dirList = c(# "../SUSTAIN_files/1709/logrem_model_0BR-noinf_0pct/",
   # "../SUSTAIN_files/1709/logrem_model_100BR-noinf_0pct/",
   # "../SUSTAIN_files/1709/logrem_model_500BR-noinf_0pct/",
   # "../SUSTAIN_files/1709/logrem_model_1000BR-noinf_0pct/",
@@ -116,8 +114,7 @@ dirList = c(
   # "../SUSTAIN_files/1709/logrem_model_25000BR-noinf_25pct/",
   # "../SUSTAIN_files/1709/logrem_model_50000BR-noinf_25pct/",
   # "../SUSTAIN_files/1709/logrem_model_75000BR-noinf_25pct/",
-  "../SUSTAIN_files/1709/logrem_model_100000BR-noinf_25pct/"
-)
+  "../SUSTAIN_files/1709/logrem_model_100000BR-noinf_25pct/")
 
 datetime <-
   seq(as.POSIXct("1997-10-01 00:00:00"),
@@ -127,7 +124,7 @@ datetime_daily <-
   seq(as.POSIXct("1997-10-01 00:00:00"),
       as.POSIXct("2015-09-30 23:00:00"),
       by = "day")
-logRem <- c(-0.5,-0.25, 0, 0.25, 0.5, 0.75, 1, 1.5, 2, 3)
+logRem <- c(-0.5, -0.25, 0, 0.25, 0.5, 0.75, 1, 1.5, 2, 3)
 #logRem <- 0
 
 # MAIN SCRIPT -----------------------------------------------------------------------
@@ -146,7 +143,7 @@ precip_daily <- rowSums(precip_temp)
 BMP_filename <-  "Init_BioRetentionBasin_1_4"
 bypass_filename <- "Init_Junction_4"
 
-# MONTE CARLO MODEL ADDITION
+# MONTE CARLO MODEL ADDITION - Uncomment to run monte carlo
 #iter <-10
 iter <- 1
 monte.results <- matrix(NA, nrow = iter, ncol = 3)
@@ -155,6 +152,7 @@ monte.results <- matrix(NA, nrow = iter, ncol = 3)
 #for (w in 1:iter){
 #  print(paste ("Iteration #",w))
 # Initialize results data frame
+
 results <-
   data.frame(
     pct.rtd = numeric(),
@@ -227,7 +225,8 @@ for (d in 1:length(dirList)) {
   # CALCULATE CONCENTRATION GOING INTO BMPS
   # Cin is defined by calling createBacteriaTimeseries on the total of Qin, storm timeseries,
   # Cin is the same for each of the BMPs
-  Cin <- createBacteriaTimeseries_fromDist(datetime, timeseries_in, 3.21, 4.58, 2.71, 2.78)
+  Cin <-
+    createBacteriaTimeseries_fromDist(datetime, timeseries_in, 3.21, 4.58, 2.71, 2.78)
   write.table(Cin, "Input/simulated_FIB_timeseries.txt", sep = "\t")
   
   # CALCULATE MASS IN AND OUT OF BMPS
@@ -297,7 +296,7 @@ for (d in 1:length(dirList)) {
     
     # CALCULATE TMDL EXCEEDANCES
     # calculated Cin and Cout based on hourly data, but need to know daily for TMDL exceedances.
-
+    
     Cin_temp <- matrix(Cin, ncol = 24, byrow = TRUE)
     Cout_temp <- matrix(CoutTot, ncol = 24, byrow = TRUE)
     
@@ -306,8 +305,8 @@ for (d in 1:length(dirList)) {
     # Cout_daily <- 10 ^ (rowMeans(log10(Cout_temp)))
     
     # Take the 10 am sample to aggregate to daily
-    Cin_daily <- Cin_temp[,10]
-    Cout_daily <- Cout_temp[,10]
+    Cin_daily <- Cin_temp[, 10]
+    Cout_daily <- Cout_temp[, 10]
     
     # Calculate single sample exceedances, geometric mean exceedances, and total mass load for each scenario
     # SS_exceedances[j,] <-
@@ -326,7 +325,7 @@ for (d in 1:length(dirList)) {
     mass[j] <- sum(MoutTot)
     
     # Add result for wet weather, GM exceedances same for wet/dry weather
-    results[nrow(results) + 1,] <-
+    results[nrow(results) + 1, ] <-
       list(
         as.numeric(pct),
         scenario_SCMtype,
@@ -349,11 +348,17 @@ if (saveToFile) {
                 sep = ""
               ),
               sep = "\t")
+  
+  # Uncomment to create a data.frame of results
   # x <- data.frame(QBMP, timeseries_in, timeseries_out, Cin, Cout_raw, precip)
   # write.table(x,
   #             file = paste("Output/", paste("Timeseries", Sys.Date(), sep = "_"), ".txt", sep = ""),
   #             sep = "\t")
 }
+
+# Print out run time
 proc.time() - ptm
+
+# Uncomment for Monte Carlo simulations
 #monte.results[w,] <- results$wet.exceedances
 #} # end for loop for multiple iterations

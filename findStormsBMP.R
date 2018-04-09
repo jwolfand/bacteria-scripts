@@ -10,12 +10,6 @@
 # Output:
 #   stormOut = Timeseries flagging when storm flow comes out of the BMP
 
-# TEST DATA, delete when done testing
-# data = read.table("Input/test_findStormsBMP2.txt", header = T)
-# Qin <- data$Qin
-# Qout <- data$Qout
-# stormIn <- data$StormIn
-
 findStormsBMP <-
   function(Qin, Qout, stormIn) {
     start <- 41 #Start after 41 hours of run
@@ -30,13 +24,6 @@ findStormsBMP <-
     
     # Create stormOut timeseries
     for (i in start:length(stormIn)) {
-      #   if (!(stormIn[i] == 0 && round(Qin[i],1) == round(Qout[i],1))) {
-      #     if (stormOut[i - 1] == 0) {
-      #       count <- count + 1
-      #     }
-      #     stormOut[i] <- count
-      #   }
-      # }
       
       # If you are in an identified storm event
       if (stormIn[i] != 0) {
@@ -57,10 +44,6 @@ findStormsBMP <-
 
     } # end for loop through timeseries
 
-    # x <- data.frame(Qin,Qout,stormIn, stormOut)
-    # write.table(x,
-    #             file = paste("Output/", paste("Test_findStormsBMP", Sys.Date(), sep = "_"), ".txt", sep = ""),
-    #             sep = "\t")
     return(stormOut)
 
   }
