@@ -134,7 +134,7 @@ logRem <- c(-0.5,-0.25, 0, 0.25, 0.5, 0.75, 1, 1.5, 2, 3)
 # Read in precipitation data; hourly
 precip <-
   read.table(
-    "Modeled_precip_98_15.txt",
+    "Input/Modeled_precip_98_15.txt",
     sep = "\t",
     colClasses = c("NULL", "NULL", "numeric")
   )

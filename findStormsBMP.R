@@ -11,10 +11,10 @@
 #   stormOut = Timeseries flagging when storm flow comes out of the BMP
 
 # TEST DATA, delete when done testing
-data = read.table("Input/test_findStormsBMP2.txt", header = T)
-Qin <- data$Qin
-Qout <- data$Qout
-stormIn <- data$StormIn
+# data = read.table("Input/test_findStormsBMP2.txt", header = T)
+# Qin <- data$Qin
+# Qout <- data$Qout
+# stormIn <- data$StormIn
 
 findStormsBMP <-
   function(Qin, Qout, stormIn) {
