@@ -14,7 +14,7 @@
 # CoutBMPs is the concentration coming out of BMPs
 # QinBMPs is the flow going into BMPs
 # Qinbypass is the flow bypassing BMPs
-# Input files needed: precipitation time series, SUSTAIN files with BMP flow time series 
+# Input files needed: precipitation time series with datetime, SUSTAIN files with BMP flow time series 
 #---------------------------------------------------------------------------------
 
 ptm <- proc.time()
