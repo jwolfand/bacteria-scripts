@@ -115,7 +115,20 @@ dirList = c(# "../SUSTAIN_files/1709/logrem_model_0BR-noinf_0pct/",
   # "../SUSTAIN_files/1709/logrem_model_25000BR-noinf_25pct/",
   # "../SUSTAIN_files/1709/logrem_model_50000BR-noinf_25pct/",
   # "../SUSTAIN_files/1709/logrem_model_75000BR-noinf_25pct/",
-  "../SUSTAIN_files/1709/logrem_model_100000BR-noinf_25pct/")
+  #"../SUSTAIN_files/1709/logrem_model_100000BR-noinf_25pct/"
+  "../SUSTAIN_files/1804/logrem_model_0BR-noinf_75pct/",
+  "../SUSTAIN_files/1804/logrem_model_100BR-noinf_75pct/",
+  "../SUSTAIN_files/1804/logrem_model_500BR-noinf_75pct/",
+  "../SUSTAIN_files/1804/logrem_model_1000BR-noinf_75pct/",
+  "../SUSTAIN_files/1804/logrem_model_2500BR-noinf_75pct/",
+  "../SUSTAIN_files/1804/logrem_model_5000BR-noinf_75pct/",
+  "../SUSTAIN_files/1804/logrem_model_7500BR-noinf_75pct/",
+  "../SUSTAIN_files/1804/logrem_model_10000BR-noinf_75pct/",
+  "../SUSTAIN_files/1804/logrem_model_25000BR-noinf_75pct/",
+  "../SUSTAIN_files/1804/logrem_model_50000BR-noinf_75pct/",
+  "../SUSTAIN_files/1804/logrem_model_75000BR-noinf_75pct/",
+  "../SUSTAIN_files/1804/logrem_model_100000BR-noinf_75pct/"
+  )
 
 datetime <-
   seq(as.POSIXct("1997-10-01 00:00:00"),
